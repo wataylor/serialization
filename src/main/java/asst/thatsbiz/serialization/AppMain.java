@@ -9,6 +9,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 import asst.pojo.AnAddress;
+import asst.pojo.ArrayedClass;
 import asst.pojo.Individual;
 import asst.pojo.IndividualWithAddress;
 
@@ -75,10 +76,27 @@ public class AppMain {
     Marshaller m = context.createMarshaller();
     // To format the [to be]generated XML output
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    // Marshall it and write output to System.out or to a file
+    /* Marshall it and write output to System.out or to a file JAXB is
+     * not able to handle an array of objects as Jackson is.  Each
+     * object is written individually so each one is written in a
+     * separate file*/
     for (Individual i : individuals) {
       m.marshal(i, System.out);
     }
+    System.out.println();
+
+    ArrayedClass arc = new ArrayedClass();
+    arc.individuals = individuals;
+    context = JAXBContext.newInstance(ArrayedClass.class);
+    // create Marshaller using JAXB context
+    m = context.createMarshaller();
+    // To format the [to be]generated XML output
+    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    /* Marshall it and write output to System.out or to a file JAXB is
+     * not able to handle an array of objects as Jackson is.  Each
+     * object is written individually so each one is written in a
+     * separate file*/
+    m.marshal(arc, System.out);
     System.out.println();
 
     /* This object includes a field which is itself an object.  Both
