@@ -29,10 +29,10 @@ public class AppMain {
     /* Class without any fields containing non-Java objects */
     Individual[] individuals = new Individual[2];
     individuals[0] =
-	new Individual().setFirstName("first \" name's & % , value")
-	.setLastName("last name value").setAge(20);
+	new Individual().setFirstName("first \" \"\" name's & % , value")
+	.setLastName("last name \" value").setAge(20);
     individuals[1] =
-	new Individual().setFirstName("2nd first name value")
+	new Individual().setFirstName("2nd first name, value")
 	.setLastName("2nd last name value").setAge(31);
     ObjectMapper mapper = new ObjectMapper();
     // JsonFactory f = new JsonFactory();
@@ -60,13 +60,13 @@ public class AppMain {
     System.out.println();
 
     /* Write the objects in CSV format  */
-    CSVPrinter printer = CSVFormat.DEFAULT.withHeader("firstName", "lastName", "age").print(System.out);
+    CSVPrinter printer = CSVFormat.EXCEL.withHeader("firstName", "lastName", "age").print(System.out);
     for (Individual i : individuals) {
       printer.printRecord(i.firstName , i.lastName , i.age);
     }
     System.out.println();
 
-    printer = CSVFormat.DEFAULT.withHeader("firstName", "lastName", "age", "address").print(System.out);
+    printer = CSVFormat.EXCEL.withHeader("firstName", "lastName", "age", "address").print(System.out);
     printer.printRecord(iwa.firstName , iwa.lastName , iwa.age, iwa.address);
     System.out.println();
 
